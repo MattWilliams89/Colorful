@@ -13,7 +13,8 @@ public class SampleApp extends Application {
                 .primaryColor(Colorful.ThemeColor.RED)
                 .accentColor(Colorful.ThemeColor.BLUE)
                 .translucent(false)
-                .dark(true);
+                .dark(false)
+                .amoled(true);
 
         Colorful.init(this);
     }
