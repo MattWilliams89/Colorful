@@ -9,8 +9,8 @@
         android:id="@+id/colorful_color_picker_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/Colorful.Dark"
-        app:popupTheme="@style/Colorful.Dark"/>
+        app:theme="@style/Colorful"
+        app:popupTheme="@style/Colorful"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_marginLeft="16dp"
