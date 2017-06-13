@@ -83,4 +83,8 @@ public class ThemeDelegate {
     public boolean isDayNight() {
         return isDayNight;
     }
+
+    public boolean isAmoled() {
+        return isAmoled;
+    }
 }
