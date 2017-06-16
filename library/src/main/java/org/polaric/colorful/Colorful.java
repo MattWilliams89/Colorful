@@ -11,6 +11,7 @@ public class Colorful {
     private static ThemeDelegate delegate;
     private static ThemeColor primaryColor = Defaults.primaryColor;
     private static ThemeColor accentColor = Defaults.accentColor;
+    private static TextSize textSize = Defaults.textSize;
     private static boolean isTranslucent = Defaults.trans;
     private static boolean isDark = Defaults.darkTheme;
     private static boolean isDayNight = Defaults.dayNightTheme;
@@ -31,11 +32,12 @@ public class Colorful {
             isDark = Defaults.darkTheme;
             isDayNight = Defaults.dayNightTheme;
             isAmoled = Defaults.isAmoled;
+            textSize = Defaults.textSize;
             themeString = generateThemeString();
         } else {
             initValues();
         }
-        delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark, isDayNight, isAmoled);
+        delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark, isDayNight, isAmoled, textSize);
     }
 
     public static void applyTheme(@NonNull Activity activity) {
@@ -56,7 +58,17 @@ public class Colorful {
 
     private static void initValues() {
         String[] colors = themeString.split(":");
-        if (colors.length == 6) {
+        if (colors.length == 7) {
+            textSize = Colorful.TextSize.values()[Integer.parseInt(colors[0])];
+            isAmoled = Boolean.parseBoolean(colors[1]);
+            isDayNight = Boolean.parseBoolean(colors[2]);
+            isDark = Boolean.parseBoolean(colors[3]);
+            isTranslucent = Boolean.parseBoolean(colors[4]);
+            primaryColor = Colorful.ThemeColor.values()[Integer.parseInt(colors[5])];
+            accentColor = Colorful.ThemeColor.values()[Integer.parseInt(colors[6])];
+        }
+        else if (colors.length == 6) {
+            textSize = TextSize.REGULAR;
             isAmoled = Boolean.parseBoolean(colors[0]);
             isDayNight = Boolean.parseBoolean(colors[1]);
             isDark = Boolean.parseBoolean(colors[2]);
@@ -65,6 +77,7 @@ public class Colorful {
             accentColor = Colorful.ThemeColor.values()[Integer.parseInt(colors[5])];
         }
         else {
+            textSize = TextSize.REGULAR;
             isDayNight = false;
             isAmoled = false;
             isDark = Boolean.parseBoolean(colors[0]);
@@ -75,7 +88,7 @@ public class Colorful {
     }
 
     private static String generateThemeString() {
-        return isAmoled + ":" + isDayNight + ":" + isDark + ":" + isTranslucent + ":" + primaryColor.ordinal() + ":" + accentColor.ordinal();
+        return textSize.ordinal() + ":" + isAmoled + ":" + isDayNight + ":" + isDark + ":" + isTranslucent + ":" + primaryColor.ordinal() + ":" + accentColor.ordinal();
     }
 
     public static ThemeDelegate getThemeDelegate() {
@@ -87,6 +100,14 @@ public class Colorful {
 
     public static String getThemeString() {
         return themeString;
+    }
+
+    public enum TextSize {
+        HUGE,
+        LARGE,
+        REGULAR,
+        SMALL,
+        TINY
     }
 
     public enum ThemeColor {
@@ -145,10 +166,11 @@ public class Colorful {
 
         private static ThemeColor primaryColor = ThemeColor.DEEP_PURPLE;
         private static ThemeColor accentColor = ThemeColor.RED;
+        private static TextSize textSize = TextSize.REGULAR;
         private static boolean trans = false;
         private static boolean darkTheme = false;
-        public static boolean dayNightTheme = false;
-        public static boolean isAmoled = false;
+        private static boolean dayNightTheme = false;
+        private static boolean isAmoled = false;
 
         public Defaults primaryColor(ThemeColor primary) {
             primaryColor = primary;
@@ -177,6 +199,11 @@ public class Colorful {
 
         public Defaults amoled(boolean amoled) {
             isAmoled = amoled;
+            return this;
+        }
+
+        public Defaults textSize(TextSize size) {
+            textSize = size;
             return this;
         }
     }
@@ -218,10 +245,15 @@ public class Colorful {
             return this;
         }
 
+        public Config textSize(TextSize size) {
+            textSize = size;
+            return this;
+        }
+
         public void apply() {
             writeValues(context);
             themeString = generateThemeString();
-            delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark, isDayNight, isAmoled);
+            delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark, isDayNight, isAmoled, textSize);
         }
     }
 
