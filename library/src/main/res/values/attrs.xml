@@ -8,4 +8,7 @@
     <attr name="primaryTextSize" format="dimension" />
     <attr name="secondaryTextSize" format="dimension" />
     <attr name="tertiaryTextSize" format="dimension"/>
+
+    <attr format="color" name="cardColor"/>
+
 </resources>

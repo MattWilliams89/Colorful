@@ -5,6 +5,9 @@
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
 
     <!--red-->
+
+    <color name="card">@color/cardview_light_background</color>
+
     <color name="md_red_50">#FFEBEE</color>
     <color name="md_red_100">#FFCDD2</color>
     <color name="md_red_200">#EF9A9A</color>
